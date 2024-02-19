@@ -64,7 +64,7 @@ function addTask() {
 
     console.log("Tarefa adicionada com sucesso.\n");
 
-    keepAdding = prompt("Deseja Adicionar outra? (S/N)\n");
+    keepAdding = prompt("Deseja Adicionar outra? (S/N) ");
   } while (keepAdding.toUpperCase().trim() == "S");
   return;
 }
@@ -104,9 +104,9 @@ function removeTask() {
     console.log("\n")
     let taskId = prompt(`Digite o id da tarefa que deseja remover: `);
 
-    let task = tarefas.find((task) => task.id == taskId);
-    if(task != null){
-      tarefas.splice(task, 1);
+    let taskIndex = tarefas.findIndex((task) => task.id == taskId);
+    if(taskIndex !== -1){
+      tarefas.splice(taskIndex, 1);
       console.log(`Tarefa com ID ${taskId} removida com sucesso.`)
     }else{
       console.log(`A tarefa de id ${taskId} não existe.`)
