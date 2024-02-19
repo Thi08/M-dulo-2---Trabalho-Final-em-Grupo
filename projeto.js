@@ -32,7 +32,9 @@ do {
       removeTask();
       break;
     case "4":
+      console.clear()
       listTasks();
+      console.log("\n")
       prompt("Aperte Enter para voltar ao menu");
       break;
     case "5":
@@ -54,7 +56,7 @@ function addTask() {
   let keepAdding = "S";
   do {
     console.clear();
-    let novaTarefa = prompt("Digite a nova tarefa:");
+    let novaTarefa = prompt("Digite a nova tarefa: ");
     let idsArray = tarefas.map((x) => x.id);
     let idMax = idsArray.sort()[idsArray.length - 1] + 1;
 
@@ -79,13 +81,17 @@ function editTask() {
     console.clear();
     console.log(`Tarefas:\n`);
     listTasks();
+    console.log("\n")
     let taskId = prompt(`Digite o id da tarefa que deseja editar: `);
 
-    // adicionar validação de number
+    let task = tarefas.find((task) => task.id == taskId);
+    if(task != null){
+      task.descricao = prompt(`Qual será a nova tarefa? `)
+    } else{
+      console.log(`A tarefa de id ${taskId} não existe.`)
+    }
 
-    //Adicionar lógica de edição
-
-    keepEditing = prompt("Deseja Editar outra tarefa? (S/N)\n");
+    keepEditing = prompt("Deseja Editar outra tarefa? (S/N) ");
   } while (keepEditing.trim().toUpperCase() == "S");
 }
 
@@ -95,12 +101,17 @@ function removeTask() {
     console.clear();
     console.log(`Tarefas:\n`);
     listTasks();
+    console.log("\n")
     let taskId = prompt(`Digite o id da tarefa que deseja remover: `);
 
-    // adicionar validação de number
+    let task = tarefas.find((task) => task.id == taskId);
+    if(task != null){
+      tarefas.splice(task, 1);
+      console.log(`Tarefa com ID ${taskId} removida com sucesso.`)
+    }else{
+      console.log(`A tarefa de id ${taskId} não existe.`)
+}
 
-    //Adicionar lógica de remoção
-
-    keepRemoving = prompt("Deseja remover outra tarefa? (S/N)\n");
+    keepRemoving = prompt("Deseja remover outra tarefa? (S/N) ");
   } while (keepRemoving.trim().toUpperCase() == "S");
 }
