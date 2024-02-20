@@ -85,9 +85,9 @@ function editTask() {
     let taskId = prompt(`Digite o id da tarefa que deseja editar: `);
 
     let task = tarefas.find((task) => task.id == taskId);
-    if(task != null){
+    if (task != null) {
       task.descricao = prompt(`Qual será a nova tarefa? `)
-    } else{
+    } else {
       console.log(`A tarefa de id ${taskId} não existe.`)
     }
 
@@ -105,13 +105,32 @@ function removeTask() {
     let taskId = prompt(`Digite o id da tarefa que deseja remover: `);
 
     let taskIndex = tarefas.findIndex((task) => task.id == taskId);
-    if(taskIndex !== -1){
+    if (taskIndex !== -1) {
       tarefas.splice(taskIndex, 1);
       console.log(`Tarefa com ID ${taskId} removida com sucesso.`)
-    }else{
+    } else {
       console.log(`A tarefa de id ${taskId} não existe.`)
-}
+    }
 
     keepRemoving = prompt("Deseja remover outra tarefa? (S/N) ");
   } while (keepRemoving.trim().toUpperCase() == "S");
+}
+
+
+function getTaskById() {
+  let keepSearching = "S";
+  do {
+    console.clear();
+    let idTask = prompt("Digite o id da tarefa: ");
+    let task = tarefas.find((task) => task.id == idTask);
+
+    if (task !== undefined) {
+      console.log(`Tarefa - ${task.id} -- ${task.descricao}\n`);
+    } else {
+      console.log(`A tarefa de id ${idTask} não foi localizada.\n`);
+    }
+
+    keepSearching = prompt("Deseja procurar outra tarefa? (S/N) ");
+  } while (keepSearching.trim().toUpperCase() == "S");
+
 }
