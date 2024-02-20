@@ -2,9 +2,9 @@ const prompt = require("prompt-sync")();
 
 const tarefas = [
   { id: 1, descricao: "lavar louça" },
-  { id: 3, descricao: "lavar louça" },
-  { id: 7, descricao: "lavar louça" },
-  { id: 5, descricao: "lavar louça" },
+  { id: 2, descricao: "secar louça" },
+  { id: 3, descricao: "lavar roupa" },
+  { id: 4, descricao: "secar roupa" },
 ];
 
 let continuar = true;
@@ -58,11 +58,19 @@ function addTask() {
     console.clear();
     let novaTarefa = prompt("Digite a nova tarefa: ");
     let idsArray = tarefas.map((x) => x.id);
+    let descricoesArray = tarefas.map((x) => x.descricao);
     let idMax = idsArray.sort()[idsArray.length - 1] + 1;
 
-    tarefas.push({ id: idMax, descricao: novaTarefa.trim() });
-
-    console.log("Tarefa adicionada com sucesso.\n");
+    if(!novaTarefa){
+      console.log("Você não digitou uma tarefa válida ou não foi possível adicionar uma tarefa. Tente novamente.\n");
+    }
+    else if(descricoesArray.includes(novaTarefa.trim())){
+      console.log("Você digitou uma tarefa já existente.\n");
+    }
+    else{
+      tarefas.push({ id: idMax, descricao: novaTarefa.trim() });
+      console.log("Tarefa adicionada com sucesso.\n");
+    }
 
     keepAdding = prompt("Deseja Adicionar outra? (S/N) ");
   } while (keepAdding.toUpperCase().trim() == "S");
@@ -115,7 +123,6 @@ function removeTask() {
     keepRemoving = prompt("Deseja remover outra tarefa? (S/N) ");
   } while (keepRemoving.trim().toUpperCase() == "S");
 }
-
 
 function getTaskById() {
   let keepSearching = "S";
